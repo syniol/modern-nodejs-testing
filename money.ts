@@ -1,5 +1,5 @@
 export class Money extends Number {
-    public constructor(public readonly amount: Number) {
+    public constructor(public readonly amount: number) {
         super(amount)
 
         if (this.amount === 0) {

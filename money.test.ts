@@ -44,33 +44,23 @@ suite('Money',  () => {
                 assert.ok(e instanceof Error)
             }
         })
-
-        await t.test('should throw an error s', () => {
-            try {
-                new Money(-12)
-
-            } catch (e) {
-                assert.ok(e instanceof Error)
-            }
-        })
-
-        await t.test('should throw an error1111', () => {
-            try {
-                new Money(-12)
-
-            } catch (e) {
-                assert.ok(e instanceof Error)
-            }
-        })
     })
 
-    test.skip('When money amount is above zero', (t: TestContext) => {
-        t.test('should throw an error', () => {
+    test('When money amount is above maximum safe integer', async (t: TestContext) => {
+        await t.test('should throw an error', () => {
             try {
                 new Money(Number.MAX_SAFE_INTEGER + 1)
             } catch (e) {
                 assert.ok(e instanceof Error)
             }
         })
+    })
+
+    test('When money amount is above maximum safe integer', () => {
+        try {
+            new Money(Number.MAX_SAFE_INTEGER + 1)
+        } catch (e) {
+            assert.ok(e instanceof Error)
+        }
     })
 })
