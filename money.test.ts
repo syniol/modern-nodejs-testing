@@ -1,4 +1,4 @@
-import assert from 'node:assert'
+import { ok, throws } from 'node:assert'
 import { suite, test, TestContext, before, beforeEach } from 'node:test'
 import { Money } from './money'
 
@@ -39,9 +39,8 @@ suite('Money',  () => {
         await t.test('should throw an error', () => {
             try {
                 new Money(-12)
-
             } catch (e) {
-                assert.ok(e instanceof Error)
+                t.assert.ok(e instanceof Error)
             }
         })
     })
@@ -51,16 +50,24 @@ suite('Money',  () => {
             try {
                 new Money(Number.MAX_SAFE_INTEGER + 1)
             } catch (e) {
-                assert.ok(e instanceof Error)
+                t.assert.ok(e instanceof Error)
             }
         })
     })
 
     test('When money amount is above maximum safe integer', () => {
+        throws(() => new Money(Number.MAX_SAFE_INTEGER + 1), (err) => {
+            ok(err instanceof Error)
+
+            return true
+        })
+
+        throws(() => new Money(Number.MAX_SAFE_INTEGER + 1), Error('error money cannot exceed MAX_SAFE_INTEGER'))
+
         try {
             new Money(Number.MAX_SAFE_INTEGER + 1)
         } catch (e) {
-            assert.ok(e instanceof Error)
+            ok(e instanceof Error)
         }
     })
 })
